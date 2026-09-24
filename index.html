@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BHOOMI-X | Agricultural Land Survey</title>
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-logo">🌍</div>
+
+            <div>
+                <h2>BHOOMI-X</h2>
+                <p>Land Survey System</p>
+            </div>
+        </div>
+
+        <nav class="menu">
+
+            <button class="menu-item active"
+                    onclick="showPage('home', this)">
+                🏠 <span>Home</span>
+            </button>
+
+            <button class="menu-item"
+                    onclick="showPage('register', this)">
+                📝 <span>Survey Registration</span>
+            </button>
+
+            <button class="menu-item"
+                    onclick="showPage('resurvey', this)">
+                🔄 <span>Resurvey</span>
+            </button>
+
+            <button class="menu-item"
+                    onclick="showPage('search', this)">
+                🔎 <span>Search Records</span>
+            </button>
+
+            <button class="menu-item"
+                    onclick="showPage('records', this)">
+                📋 <span>All Records</span>
+            </button>
+
+            <button class="menu-item"
+                    onclick="showPage('mapPage', this)">
+                🗺️ <span>Land Map</span>
+            </button>
+
+        </nav>
+
+        <div class="sidebar-footer">
+            <span class="online-dot"></span>
+            System Ready
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div>
+                <h1 id="pageTitle">Dashboard</h1>
+                <p id="pageSubtitle">
+                    Smart agricultural land survey management
+                </p>
+            </div>
+
+            <div id="currentDate" class="date-box"></div>
+
+        </header>
+
+
+        <!-- ================= HOME ================= -->
+
+        <section id="home" class="page active-page">
+
+            <div class="hero">
+
+                <div class="hero-text">
+
+                    <div class="badge">
+                        🌱 DIGITAL LAND MANAGEMENT
+                    </div>
+
+                    <h1>
+                        Smart Agricultural
+                        <span>Land Survey</span>
+                    </h1>
+
+                    <p>
+                        Register, search, update and visualize
+                        agricultural land survey records digitally.
+                    </p>
+
+                    <div class="hero-buttons">
+
+                        <button class="primary-btn"
+                                onclick="showPage('register')">
+                            + Register Survey
+                        </button>
+
+                        <button class="outline-btn"
+                                onclick="showPage('mapPage')">
+                            🗺️ Open Land Map
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="hero-visual">
+
+                    <div class="fake-map">
+
+                        <div class="fake-road"></div>
+
+                        <div class="fake-plot p1">141/1</div>
+                        <div class="fake-plot p2">141/2</div>
+                        <div class="fake-plot p3">141/3</div>
+                        <div class="fake-plot p4">142/1</div>
+                        <div class="fake-plot p5">142/2</div>
+                        <div class="fake-plot p6">143/1</div>
+
+                        <div class="map-pin">📍</div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- STATS -->
+
+            <div class="section-title">
+                <div>
+                    <h2>Survey Overview</h2>
+                    <p>Registered land statistics</p>
+                </div>
+            </div>
+
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">📊</div>
+                    <div>
+                        <span>Total Surveys</span>
+                        <strong id="totalSurveys">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">🌱</div>
+                    <div>
+                        <span>Agricultural</span>
+                        <strong id="agriculturalCount">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon water">💧</div>
+                    <div>
+                        <span>Wet Land</span>
+                        <strong id="wetCount">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon yellow">🌾</div>
+                    <div>
+                        <span>Dry Land</span>
+                        <strong id="dryCount">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">🏠</div>
+                    <div>
+                        <span>Residential</span>
+                        <strong id="residentialCount">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon forest">🌳</div>
+                    <div>
+                        <span>Forest</span>
+                        <strong id="forestCount">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon brown">🪨</div>
+                    <div>
+                        <span>Barren</span>
+                        <strong id="barrenCount">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon grey">•</div>
+                    <div>
+                        <span>Other</span>
+                        <strong id="otherCount">0</strong>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- QUICK ACCESS -->
+
+            <div class="section-title">
+                <div>
+                    <h2>Quick Access</h2>
+                    <p>Manage your land information</p>
+                </div>
+            </div>
+
+
+            <div class="feature-grid">
+
+                <div class="feature-card"
+                     onclick="showPage('register')">
+
+                    <div class="feature-icon">📝</div>
+
+                    <h3>Survey Registration</h3>
+
+                    <p>
+                        Register survey number, owner, land type,
+                        area and location.
+                    </p>
+
+                    <b>Register →</b>
+
+                </div>
+
+
+                <div class="feature-card"
+                     onclick="showPage('resurvey')">
+
+                    <div class="feature-icon">🔄</div>
+
+                    <h3>Resurvey & Update</h3>
+
+                    <p>
+                        Update existing survey information
+                        whenever land details change.
+                    </p>
+
+                    <b>Update →</b>
+
+                </div>
+
+
+                <div class="feature-card"
+                     onclick="showPage('search')">
+
+                    <div class="feature-icon">🔎</div>
+
+                    <h3>Search Records</h3>
+
+                    <p>
+                        Search survey numbers and owner names
+                        from registered records.
+                    </p>
+
+                    <b>Search →</b>
+
+                </div>
+
+
+                <div class="feature-card"
+                     onclick="showPage('mapPage')">
+
+                    <div class="feature-icon">🗺️</div>
+
+                    <h3>Interactive Land Map</h3>
+
+                    <p>
+                        View registered plots and their
+                        land categories on the map.
+                    </p>
+
+                    <b>Open Map →</b>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= REGISTER ================= -->
+
+        <section id="register" class="page">
+
+            <div class="card">
+
+                <div class="page-heading">
+                    <h2>Survey Registration</h2>
+                    <p>Register a new land survey record.</p>
+                </div>
+
+                <form id="surveyForm">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label>Survey Number *</label>
+
+                            <input type="text"
+                                   id="surveyNo"
+                                   placeholder="Example: 141/2"
+                                   required>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Owner Name *</label>
+
+                            <input type="text"
+                                   id="ownerName"
+                                   placeholder="Enter owner name"
+                                   required>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Land Type *</label>
+
+                            <select id="landType" required>
+
+                                <option value="">
+                                    Select Land Type
+                                </option>
+
+                                <option value="Agricultural">
+                                    Agricultural
+                                </option>
+
+                                <option value="Wet">
+                                    Wet
+                                </option>
+
+                                <option value="Dry">
+                                    Dry
+                                </option>
+
+                                <option value="Residential">
+                                    Residential
+                                </option>
+
+                                <option value="Forest">
+                                    Forest
+                                </option>
+
+                                <option value="Barren">
+                                    Barren
+                                </option>
+
+                                <option value="Other">
+                                    Other
+                                </option>
+
+                            </select>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Area (Acres)</label>
+
+                            <input type="number"
+                                   id="area"
+                                   min="0"
+                                   step="0.01"
+                                   placeholder="Example: 2.50">
+                        </div>
+
+
+                        <div class="form-group full">
+
+                            <label>Land Address / Location *</label>
+
+                            <div class="location-row">
+
+                                <input type="text"
+                                       id="address"
+                                       placeholder="Enter village, mandal, district"
+                                       required>
+
+                                <button type="button"
+                                        class="location-btn"
+                                        onclick="findLocation()">
+                                    📍 Find Location
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div id="locationStatus"
+                         class="location-status">
+                        Location not selected
+                    </div>
+
+
+                    <div class="form-actions">
+
+                        <button type="reset"
+                                class="clear-btn"
+                                onclick="resetLocation()">
+                            Clear
+                        </button>
+
+                        <button type="submit"
+                                class="primary-btn">
+                            💾 Register Survey
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= RESURVEY ================= -->
+
+        <section id="resurvey" class="page">
+
+            <div class="card">
+
+                <div class="page-heading">
+                    <h2>Resurvey & Update</h2>
+                    <p>
+                        Search an existing survey and update
+                        the latest information.
+                    </p>
+                </div>
+
+                <div class="search-row">
+
+                    <input type="text"
+                           id="resurveySearch"
+                           placeholder="Enter Survey Number">
+
+                    <button class="primary-btn"
+                            onclick="loadResurvey()">
+                        🔎 Find Survey
+                    </button>
+
+                </div>
+
+                <div id="resurveyResult"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SEARCH ================= -->
+
+        <section id="search" class="page">
+
+            <div class="card">
+
+                <div class="page-heading">
+                    <h2>Search Land Records</h2>
+                    <p>
+                        Search using survey number or owner name.
+                    </p>
+                </div>
+
+                <div class="search-row">
+
+                    <input type="text"
+                           id="recordSearch"
+                           placeholder="Survey Number or Owner Name"
+                           oninput="searchRecords()">
+
+                    <button class="primary-btn"
+                            onclick="searchRecords()">
+                        🔎 Search
+                    </button>
+
+                </div>
+
+                <div id="searchResults"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ALL RECORDS ================= -->
+
+        <section id="records" class="page">
+
+            <div class="card">
+
+                <div class="records-top">
+
+                    <div>
+                        <h2>All Survey Records</h2>
+                        <p>All registered land records.</p>
+                    </div>
+
+                    <button class="danger-btn"
+                            onclick="clearAllRecords()">
+                        🗑 Clear All
+                    </button>
+
+                </div>
+
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Survey No.</th>
+                                <th>Owner</th>
+                                <th>Land Type</th>
+                                <th>Area</th>
+                                <th>Address</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="recordsTableBody"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= MAP ================= -->
+
+        <section id="mapPage" class="page">
+
+            <div class="card map-card">
+
+                <div class="records-top">
+
+                    <div>
+                        <h2>Land Map</h2>
+                        <p>
+                            Interactive land visualization
+                        </p>
+                    </div>
+
+                    <button class="primary-btn"
+                            onclick="refreshMap()">
+                        🔄 Refresh
+                    </button>
+
+                </div>
+
+
+                <div class="legend">
+
+                    <span><i class="lg agricultural"></i> 🌱 Agricultural</span>
+                    <span><i class="lg wet"></i> 💧 Wet</span>
+                    <span><i class="lg dry"></i> 🌾 Dry</span>
+                    <span><i class="lg residential"></i> 🏠 Residential</span>
+                    <span><i class="lg forest"></i> 🌳 Forest</span>
+                    <span><i class="lg barren"></i> 🪨 Barren</span>
+                    <span><i class="lg other"></i> • Other</span>
+
+                </div>
+
+
+                <div id="map"></div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
